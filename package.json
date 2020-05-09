@@ -4,21 +4,26 @@
   "private": true,
   "scripts": {
     "webpack-dev-server": "webpack-dev-server",
-    "dev": "webpack-dev-server --hot --mode=development",
+    "dev": "webpack-dev-server --mode=development",
     "prod": "webpack --mode=production"
   },
   "dependencies": {
     "autoprefixer": "^9.7.6",
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
     "jquery": "^3.5.1",
+    "mdbreact": "^4.26.0",
     "popper.js": "^1.16.1",
     "postcss-loader": "^3.0.0",
     "precss": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1"
   },

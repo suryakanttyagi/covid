@@ -15,7 +15,9 @@ module.exports = {
       rules: [
          {
             test: /\.js$/,
-            use: 'babel-loader',
+            // use: 'babel-loader',
+            loader: 'babel-loader',
+            query: {compact: false}
          },
          {
             test: /\.css$/,
@@ -24,6 +26,13 @@ module.exports = {
          {
             test: /\.(png|j?g|svg|gif)?$/,
             use: 'file-loader'
+         },
+         {
+            test: /\.(ttf|eot|woff|woff2)$/,
+            loader: 'file-loader',
+            options: {
+               name: 'fonts/[name].[ext]'
+            }
          }
 ]
    },
