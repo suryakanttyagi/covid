@@ -1,8 +1,8 @@
 import React from 'react';
-import { fetchGlobalData, onChangeInput } from '../actions/WorldCasesActions';
+import { fetchIndiaData, onChangeInput } from '../actions/IndiaCasesActions';
 import { connect } from 'react-redux';
 
-class WorldCasesScreen extends React.Component {
+class IndiaCasesScreen extends React.Component {
 constructor(){
     super()
     this.state={
@@ -10,21 +10,21 @@ constructor(){
     }
 }
 componentWillMount(){
-    this.props.fetchGlobalData()
-    this.interval = setInterval(() => {
-        this.props.fetchGlobalData();
-        }, 50000);
+    this.props.fetchIndiaData()
+    // this.interval = setInterval(() => {
+    //     this.props.fetchIndiaData();
+    //     }, 10000);
 }
 render(){
-    if(this.props.globalData)
+    if(this.props.indiaData)
     {
         return (
             <div className="container">
                 <div className="row mb-4 justify-content-center">
-                <div className="col-md-3 col-sm-6 col-lg-3 col-xl-3">
+                <div className="col-md-3 col-sm-12 col-lg-3 col-xl-3">
                         <div className="card-body shadow my-2">
                             <div className="d-flex justify-content-between">
-                                <div className="card-text" style={{color: "#3d1aca"}}>{this.props.globalData['TotalConfirmed']}</div>
+                                <div className="card-text" style={{color: "#3d1aca"}}>{this.props.indiaData['totalconfirmed']}</div>
                                 <div><i className="fa fa-globe fa-2x" aria-hidden="true"></i></div>
                             </div>
                             <div className="card-text">
@@ -32,12 +32,12 @@ render(){
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-3 col-sm-6 col-lg-3 col-xl-3">
+                    <div className="col-md-3 col-sm-12 col-lg-3 col-xl-3">
                         <div className="card-body shadow my-2">
                             <div className="d-flex justify-content-between">
                                 <div className="card-text" style={{color: "#71a0e6"}}>
                                     {
-                                        this.props.globalData['TotalConfirmed'] - (this.props.globalData['TotalDeaths'] + this.props.globalData['TotalRecovered'])
+                                        this.props.indiaData['totalconfirmed'] - (this.props.indiaData['totaldeceased'] + this.props.indiaData['totalrecovered'])
                                     }
                                 </div>
                                 <div><i className="fa fa-head-side-cough fa-2x fa-flip-horizontal" aria-hidden="true"></i></div>
@@ -47,10 +47,10 @@ render(){
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-3 col-sm-6 col-lg-3 col-xl-3">
+                    <div className="col-md-3 col-sm-12 col-lg-3 col-xl-3">
                         <div className="card-body shadow my-2">
                             <div className="d-flex justify-content-between">
-                                <div className="card-text" style={{color: "#fb6d6d"}}>{this.props.globalData['TotalDeaths']}</div>
+                                <div className="card-text" style={{color: "#fb6d6d"}}>{this.props.indiaData['totaldeceased']}</div>
                                 <div><i className="fas fa-skull-crossbones fa-2x" aria-hidden="true"></i></div>
                             </div>
                             <div className="card-text">
@@ -58,10 +58,10 @@ render(){
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-3 col-sm-6 col-lg-3 col-xl-3">
+                    <div className="col-md-3 col-sm-12 col-lg-3 col-xl-3">
                         <div className="card-body shadow my-2">
                             <div className="d-flex justify-content-between">
-                                <div className="card-text" style={{color: "#63ea4b"}}>{this.props.globalData['TotalRecovered']}</div>
+                                <div className="card-text" style={{color: "#63ea4b"}}>{this.props.indiaData['totalrecovered']}</div>
                                 <div><i className="fas fa-syringe fa-2x" aria-hidden="true"></i></div>
                             </div>
                             <div className="card-text">
@@ -71,12 +71,6 @@ render(){
                     </div>
                 </div>
                 <div className="d-flex justify-content-between mb-1 pr-3">
-                    {/* <u>
-                        <a href="/india-covid-details">
-                            <span className="font-weight-bold mr-2">Show Cases in India</span>
-                            <img src="/public/asset/flag_india.png" style={{width:'30px', height: '30px'}}/>
-                        </a>
-                    </u>                 */}
                 <div className="d-flex">
                     <div className="pt-2 px-2 m-0">
                         <label htmlFor="filterInputId">Search</label>
@@ -85,7 +79,7 @@ render(){
                         <input 
                             type="text" 
                             className="form-control"
-                            placeholder="Enter Country Name"
+                            placeholder="Enter State Name"
                             value={this.props.filterInput} 
                             id="filterInputId" 
                             onChange={(e)=>this.props.onChangeInput(e.target.value)}
@@ -97,7 +91,7 @@ render(){
                     <table id="dtBasicExample" className="table table-sm" width="100%">
                         <thead>
                             <tr style={{backgroundColor: "#dcdcdc"}}>
-                                <th className="th-sm">Country</th>
+                                <th className="th-sm">State</th>
                                 <th className="th-sm">Confirmed</th>
                                 <th className="th-sm">Active</th>
                                 <th className="th-sm">Cured</th>
@@ -109,11 +103,11 @@ render(){
                                 this.props.filteredData.map((item, index)=>{
                                     return (
                                         <tr key={'tr_' + index}>
-                                            <td>{item['Country']}</td>
-                                            <td>{item['TotalConfirmed']}</td>
-                                            <td>{item['TotalConfirmed']- (item['TotalRecovered'] + item['TotalDeaths'])}</td>
-                                            <td>{item['TotalRecovered']}</td>
-                                            <td>{item['TotalDeaths']}</td>
+                                            <td>{item['state']}</td>
+                                            <td>{item['confirmed']}</td>
+                                            <td>{item['active']}</td>
+                                            <td>{item['recovered']}</td>
+                                            <td>{item['deaths']}</td>
                                         </tr>
                                     )
                                 })
@@ -135,16 +129,13 @@ render(){
 }
 }
 function mapStateToProps(state) {
-    const { globalData, countriesData, filteredData, filterInput } = state.worldcasesreducer;
+    const { indiaData, stateData, filteredData, filterInput } = state.indiacasesreducer;
     return {
-        globalData,
-        countriesData,
-        filteredData,
-        filterInput
+        indiaData, stateData, filteredData, filterInput
     };
   }
   
   export default connect(mapStateToProps, {
-    fetchGlobalData,
+    fetchIndiaData,
     onChangeInput
-  })(WorldCasesScreen);
+  })(IndiaCasesScreen);
